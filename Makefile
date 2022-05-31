@@ -135,6 +135,8 @@ UPROGS=\
 	$U/_find\
 	$U/_xargs\
 	$U/_primes\
+	$U/_nsh\
+	$U/_testsh\
 
 	UEXTRA += user/xargstest.sh
 
