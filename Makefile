@@ -28,7 +28,10 @@ OBJS = \
   $K/sysfile.o \
   $K/kernelvec.o \
   $K/plic.o \
-  $K/virtio_disk.o
+  $K/virtio_disk.o\
+  $K/list.o\
+  $K/buddy.o\
+
 
 # riscv64-unknown-elf- or riscv64-linux-gnu-
 # perhaps in /opt/riscv/bin
@@ -137,6 +140,7 @@ UPROGS=\
 	$U/_primes\
 	$U/_nsh\
 	$U/_testsh\
+	$U/_alloctest\
 
 	UEXTRA += user/xargstest.sh
 
