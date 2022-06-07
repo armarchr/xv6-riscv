@@ -141,6 +141,7 @@ UPROGS=\
 	$U/_nsh\
 	$U/_testsh\
 	$U/_alloctest\
+	$U/_lazytests\
 
 	UEXTRA += user/xargstest.sh
 

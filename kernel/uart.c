@@ -74,9 +74,9 @@ uartinit(void)
   // enable transmit and receive interrupts.
   WriteReg(IER, IER_TX_ENABLE | IER_RX_ENABLE);
 
-  initlock(&uart_tx_lock, "uart");
+  //initlock(&uart_tx_lock, "uart");
 }
-
+#if 0
 // add a character to the output buffer and tell the
 // UART to start sending if it isn't already.
 // blocks if the output buffer is full.
@@ -192,3 +192,40 @@ uartintr(void)
   uartstart();
   release(&uart_tx_lock);
 }
+#endif
+
+// write one output character to the UART.
+void
+uartputc(int c)
+{
+  // wait for Transmit Holding Empty to be set in LSR.
+  while((ReadReg(LSR) & (1 << 5)) == 0)
+    ;
+  WriteReg(THR, c);
+}
+
+// read one input character from the UART.
+// return -1 if none is waiting.
+int
+uartgetc(void)
+{
+  if(ReadReg(LSR) & 0x01){
+    // input data is ready.
+    return ReadReg(RHR);
+  } else {
+    return -1;
+  }
+}
+
+// trap.c calls here when the uart interrupts.
+void
+uartintr(void)
+{
+  while(1){
+    int c = uartgetc();
+    if(c == -1)
+      break;
+    consoleintr(c);
+  }
+}
+

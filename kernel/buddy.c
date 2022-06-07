@@ -272,23 +272,15 @@ bd_initfree_pair(int k, int bi) {
   if(bit_get(bd_sizes[k].alloc, bi)) {
     // one of the pair is free
     free = BLK_SIZE(k);
- 	printf("size %d, bd_initfree_pair ", k); 
-    
-    if(bi == left){
-      printf(" left:"); 
-    }
-    else if(bi == right){
-      printf(" right:"); 
-    } 
 
     //if(bit_isset(bd_sizes[k].alloc, bi))
     if(bi == left) {
-      printf(" bi is free \n"); 
+      //printf(" bi is free \n"); 
       lst_push(&bd_sizes[k].free, addr(k, bi));
     }
     else
     {
-      printf(" buddy is free \n"); 
+      //printf(" buddy is free \n"); 
       lst_push(&bd_sizes[k].free, addr(k, buddy));
     }
   }
